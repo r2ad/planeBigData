@@ -1,5 +1,9 @@
 package org.planebigdata;
-
+/*
+ * Store KML ouput to a tab separated file:
+ * FlightNum	DepartTime	Heading	Lat Long	Alt	
+ * Note: cdata includes Departed: 06/01/2013 10:16 AM EDT (1416Z)
+ */
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -118,6 +122,7 @@ public class KML2TSV extends DefaultHandler{
     
     private static final String KML_NS = "http://earth.google.com/kml/2.2";
     private static final String FOLDER_ELM = "Folder";
+    private static final String PLACE_ELM = "Placemaker";
     private static final String NAME_ELM = "name";
     private static final String DESCR_ELM = "description";
     private static final String COORD_ELM = "coordinates";
