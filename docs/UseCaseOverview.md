@@ -37,4 +37,13 @@ Incorporate spatial indexing algorithms, such as Z-Indexing.
 * Look at Slides from: http://www.slideshare.net/jeffreybreen/big-data-stepbystep-using-r-hadoop-with- rhadoops-rmr-packag
 
 
+## The Solution ##
+
+Leverage: National Day of Hacking: http://hackforchange.org/
+We need help to create a github site with all the material: Use Case, Design, Data, Implementation for Hadoop. We'll try to get as much done in a day and continue it long term as an open source project.
+R2AD will help with documentation, testing, QA, polish, sharing via github or Google project/etc, slides, organization, meetups, etc. We need help with the Hadoop injestion (parsing/storage), design, and implementation of analytics to solve some of the interesting challenges.
+Skills: Hadoop, NoSQL, Java, KML perhaps
+
+
+
 
