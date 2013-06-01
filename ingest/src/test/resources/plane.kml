@@ -1,4 +1,6 @@
-    <Placemark>
+<kml xmlns="http://earth.google.com/kml/2.2">
+    <Document>
+		<Placemark>
         <name>JBU1732</name>
         <Style id="fbstyle182954847">
             <IconStyle>
@@ -19,3 +21,4 @@
             <coordinates>-73.75,40.6666666666667,122</coordinates>
         </Point>
 	</Placemark>
+	</Document>

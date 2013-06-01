@@ -174,7 +174,6 @@ public class KML2TSV extends DefaultHandler{
 
     @Override
     public void endElement(String uri, String lName, String qName) throws SAXException {
-        if (!KML_NS.equals(uri)) return;
         final String content = doneChars();
 
         if (SIMPLEDATA_ELM.equals(lName)) {
