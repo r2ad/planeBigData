@@ -116,9 +116,15 @@ public class KML2TSV extends DefaultHandler{
 
     // For flight data:
    /* 
-    * 
+    * ref: Lat/Lon ref: http://code.google.com/p/simplelatlng/source/browse/src/main/java/com/javadocmd/simplelatlng/LatLng.java
     */
     
+    private String FlightNum = "";
+    private String DepartTime = "";
+    private int heading = 0;
+    private double longitude = 0.0;
+    private double lattitude = 0.0;
+    private double altitude;
     
     private static final String KML_NS = "http://earth.google.com/kml/2.2";
     private static final String FOLDER_ELM = "Folder";
