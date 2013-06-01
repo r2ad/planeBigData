@@ -14,4 +14,23 @@ import java.io.IOException;
  * Created : 6/1/13 2:23 PM
  */
 public class LoadFileTest {
+
+    private SAXParser sp;
+
+    @Before
+    public void setup() throws SAXException, ParserConfigurationException {
+        final File indir = new File("../data/IN-kml");
+        final File outdir = new File("../data/OUT-json");
+        final SAXParserFactory spf = SAXParserFactory.newInstance();
+        spf.setNamespaceAware(true);
+        sp = spf.newSAXParser();
+    }
+
+    @Test
+    public void doesEverythingWork() throws IOException, SAXException {
+        KML2TSV me = new KML2TSV(new File("."),new File( "."), sp, true);
+        me.workFiles();
+
+    }
+
 }
