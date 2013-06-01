@@ -110,11 +110,15 @@ public class KML2TSV extends DefaultHandler{
         }
     }
 
+    // For flight data:
+   /* 
+    * 
+    */
+    
     
     private static final String KML_NS = "http://earth.google.com/kml/2.2";
     private static final String FOLDER_ELM = "Folder";
     private static final String NAME_ELM = "name";
-    private static final String PLACE_ELM = "Placemark";
     private static final String DESCR_ELM = "description";
     private static final String COORD_ELM = "coordinates";
     private static final String SIMPLEDATA_ELM = "SimpleData";
