@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+    <Document>
+        <name>flightwise.com</name>
+        <Style id="fbpaths">
+            <LineStyle id="pathStyle">
+                <color>7fff00ff</color>
+                <width>4</width>
+            </LineStyle>
+        </Style>
+        <description><![CDATA[ LAX Inbound Flight List ]]></description>
+
+        <Placemark>
+            <name>DAL1311</name>
+            <Style id="fbstyle238761542">
+                <IconStyle>
+                    <heading>261</heading>
+                    <Icon>
+                        <href>root://icons/palette-2.png</href>
+                        <y>0</y>
+                        <w>32</w>
+                        <h>32</h>
+                    </Icon>
+                </IconStyle>
+            </Style>
+            <description><![CDATA[ <table width=250 border=0 cellspacing=0><tr><td><font size=1>brought to you by</font><br /><a href="http://fboweb.com/f/al.aspx?link=666&click=Y"><img border="0" src="http://fboweb.com/f/al.aspx?link=665"></a></td></tr><tr><td><font color=darkgreen><B>Active</b></font></td></tr><tr><td>MSY->LAX</td></tr><tr><td>Type: B738</td></tr><tr><td>Alt: 100ft @162kts</td></tr><tr><td>Departed: 06/01/2013 07:24 AM CDT (1224Z)</td></tr><tr><td>ETA: N/A, in 0h 0m</td></tr><tr><td>Route:</td></tr><tr><td>KMSY./.PKE097029..KONZL.SEAVU2.KLAX</td></tr></table> ]]></description>
+            <styleUrl>#fbstyle238761542</styleUrl>
+            <Point>
+                <extrude>1</extrude>
+                <altitudeMode>absolute</altitudeMode>
+                <coordinates>-118.393611111111,33.9352777777778,30</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark>
+            <styleUrl>#fbpaths</styleUrl>
+            <LineString>
+                <tessellate>0</tessellate>
+                <altitudeMode>absolute</altitudeMode>
+                <coordinates>-118.393611111111,33.9352777777778,30
+                    -118.347222222222,33.9413888888889,200 -118.316666666667,33.95,433
+                    -118.2975,33.9461111111111,467 -118.25,33.95,733
+                    -118.229722222222,33.9530555555556,833</coordinates>
+            </LineString>
+        </Placemark>
+        <Placemark>
+            <name>UAL848</name>
+            <Style id="fbstyle22508889">
+                <IconStyle>
+                    <heading>281</heading>
+                    <Icon>
+                        <href>root://icons/palette-2.png</href>
+                        <y>0</y>
+                        <w>32</w>
+                        <h>32</h>
+                    </Icon>
+                </IconStyle>
+            </Style>
+            <description><![CDATA[ <table width=250 border=0 cellspacing=0><tr><td><font size=1>brought to you by</font><br /><a href="http://fboweb.com/f/al.aspx?link=666&click=Y"><img border="0" src="http://fboweb.com/f/al.aspx?link=665"></a></td></tr><tr><td><font color=darkgreen><B>Active</b></font></td></tr><tr><td>BOS->LAX</td></tr><tr><td>Type: B752</td></tr><tr><td>Alt: 300ft @145kts</td></tr><tr><td>Departed: 06/01/2013 06:17 AM EDT (1017Z)</td></tr><tr><td>ETA: N/A, in 0h 1m</td></tr><tr><td>Route:</td></tr><tr><td>KBOS./.JNC187039..KD48Q..KL42O..KL36M..GLACO.J64.HEC.RIIVR2.KLAX</td></tr></table> ]]></description>
+            <styleUrl>#fbstyle22508889</styleUrl>
+            <Point>
+                <extrude>1</extrude>
+                <altitudeMode>absolute</altitudeMode>
+                <coordinates>-118.378611111111,33.9380555555556,91</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark>
+            <styleUrl>#fbpaths</styleUrl>
+            <LineString>
+                <tessellate>0</tessellate>
+                <altitudeMode>absolute</altitudeMode>
+                <coordinates>-118.378611111111,33.9380555555556,91 -118.35,33.9333333333333,200
+                    -118.326666666667,33.9422222222222,267 -118.3,33.95,433
+                    -118.271666666667,33.9466666666667,533 -118.25,33.95,733</coordinates>
+            </LineString>
+        </Placemark>
+    </Document>
+</kml>
