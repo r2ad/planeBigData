@@ -12,7 +12,28 @@
     <artifactId>ingest</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
- 
+
+
+    <build>
+        <plugins>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>appassembler-maven-plugin</artifactId>
+            <version>1.3.1</version>
+            <configuration>
+                <programs>
+                    <program>
+                        <mainClass>com.mycompany.app.App</mainClass>
+                        <name>app</name>
+                    </program>
+                </programs>
+            </configuration>
+        </plugin>
+        </plugins>
+    </build>
+
+
+
     <name>PlaneBigData</name>
     <description>Ingestion Rountines for KML files</description>
 
