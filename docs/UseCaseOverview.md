@@ -26,6 +26,16 @@ The data is constantly changing, however summary and answers are needed as soon 
 * Predict where a given plane might be a a specified time in the future. Indicate where if it will land if that’s detectable.
  
 
+Incorporate spatial indexing algorithms, such as Z-Indexing.
+
+## The Data ##
+
+Input Source: FAA KML
+Airplane Locations http://flightwise.com/flighttracking/
+Airport locations https://groups.google.com/forum/?fromgroups#!topic/rec.aviation.soaring/EOBD9OO2Qe4 and format thereof: http://www.justsoar.com/public/nasr_apt/nasr_spec/apt_rf.txt
+Airline data: http://services.faa.gov/docs/tutorial/
+Or http://stat-computing.org/dataexpo/2009/the-data.html and https://github.com/jseidman/hadoop-R
+Look at Slides from: http://www.slideshare.net/jeffreybreen/big-data-stepbystep-using-r-hadoop-with- rhadoops-rmr-packag
 
 
 
