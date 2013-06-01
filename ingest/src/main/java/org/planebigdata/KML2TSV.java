@@ -1,17 +1,5 @@
 package org.planebigdata;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -22,6 +10,13 @@ import org.codehaus.jackson.JsonGenerator;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.*;
+import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class KML2TSV extends DefaultHandler{
 
@@ -64,7 +59,7 @@ public class KML2TSV extends DefaultHandler{
         me.workFiles();
     }
 
-    private void workFiles() throws SAXException, IOException {
+    public void workFiles() throws SAXException, IOException {
         System.out.println("will work on files in " + srcDir + " and produce output to " + tgtDir);
         final File[] files = srcDir.listFiles((FileFilter)new SuffixFileFilter(".kml"));
         
