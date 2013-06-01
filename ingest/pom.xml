@@ -23,8 +23,8 @@
             <configuration>
                 <programs>
                     <program>
-                        <mainClass>com.mycompany.app.App</mainClass>
-                        <name>app</name>
+                        <mainClass>org.planebigdata.Convert</mainClass>
+                        <name>convert</name>
                     </program>
                 </programs>
             </configuration>
