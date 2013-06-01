@@ -30,7 +30,13 @@ public class LoadFileTest {
     public void doesEverythingWork() throws IOException, SAXException {
         KML2TSV me = new KML2TSV(new File("."),new File( "."), sp, true);
         me.workFiles();
+    }
 
+    @Test
+    public void processSingleFile() throws IOException, SAXException {
+        KML2TSV me = new KML2TSV(new File("."),new File( "."), sp, true);
+        final File file = new File(this.getClass().getClassLoader().getResource("plane.kml").getFile());
+        me.acceptInputFile(file);
     }
 
 }

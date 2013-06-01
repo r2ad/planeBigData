@@ -75,7 +75,7 @@ public class KML2TSV extends DefaultHandler{
     }
 
 
-    private void acceptInputFile(final File srcFile) throws SAXException, IOException {
+    public void acceptInputFile(final File srcFile) throws SAXException, IOException {
         System.out.println(String.format("starting on file %s", srcFile.getAbsolutePath()));
         
         final File tgtFile = new File(tgtDir, FilenameUtils.getBaseName(srcFile.getName()) + ".json");
