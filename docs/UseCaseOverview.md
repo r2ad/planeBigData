@@ -12,6 +12,18 @@ airport locations and near real-time flight information of various
 carriers. The real-time aspect provides additional challenges which
 likely will yield an interesting design.
 
+
+## The Challenge ##
+
+The data is constantly changing, however summary and answers are needed as soon as possible. While data can be filtered to reduce the number of events, ideally, all data will be stored and processed. Both current and historical analysis is needed. Below are some of the desired goals:
+
+
+* Find out what is within a geometry with a given time frame. A more advanced query would enable time oriented searches and might generate alerts for incoming new data. Alerting might be out of scope. Given an air corridor, have any flights deviated from it?
+* Over time, which airport is the busiest and which airline has the best record for arriving on time. Graph this data as part of a BI tool integration?
+* Can you detect airport closures, perhaps as a result of weather activity? Optional, if weather data can be accessed, correlations might be interesting.
+* Given all the data, find and merge duplicates based on trajectory and time. Seed the data near duplicate data to test algorithms.
+* Predict which plane will land where, based on required runway length, in the event of an emergency at a given time.
+* Predict where a given plane might be a a specified time in the future. Indicate where if it will land if that’s detectable.
  
 
 
