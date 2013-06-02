@@ -30,6 +30,7 @@ public class KML2TSV extends DefaultHandler {
     private PrintWriter output;
 
     private ArrayList<Coordinates> coordList = new ArrayList<Coordinates>(10);
+    private boolean insidePlaceMark = false;
 
     public KML2TSV(final SAXParser sp, final PrintWriter out) {
         parser = sp;
@@ -141,6 +142,9 @@ public class KML2TSV extends DefaultHandler {
             return;
         }
 
+        if ( PLACE_ELM.equals(lName)) {
+            insidePlaceMark = true;
+        }
 
         newChars();
 
@@ -151,35 +155,45 @@ public class KML2TSV extends DefaultHandler {
     public final void endElement(final String uri, final String lName, final String qName) throws SAXException {
         final String content = doneChars();
 
-
         if (HEADING_ELM.equals(lName)) {
             heading = Integer.parseInt(content);
-        } else if (DESCR_ELM.equals(lName)) {
+        } else if (DESCR_ELM.equals(lName) && insidePlaceMark ) {
             departTime = extractDepartTime(content);
         } else if (COORD_ELM.equals(lName)) {
             parseCoordinates(content);
         } else if (NAME_ELM.equals(lName)) {
             flightNum = content;
-        } else if (PLACE_ELM.equals(lName) && coordList.size() > 1) {
-            // Dump out the records
-            boolean firstTime = true;
-            for (Coordinates coord : coordList) {
+        } else if (PLACE_ELM.equals(lName)) {
+            insidePlaceMark = false;
+            if (coordList.size() > 1) {
+                // Dump out the records
+                boolean firstTime = true;
+                for (Coordinates coord : coordList) {
 
-                output.print(flightNum + "\t");
-                output.print(departTime + "\t");
+                    output.print(flightNum + "\t");
+                    output.print(departTime + "\t");
 
-                if (firstTime) {
-                    output.print(heading + "\t");
-                } else {
-                    output.print("\t\t");
+                    if (firstTime) {
+                        output.print(heading + "\t");
+                    } else {
+                        output.print("\t\t");
+                    }
+                    output.print(coord.lattitude + "\t");
+                    output.print(coord.longitude + "\t");
+                    output.print(coord.altitude);
+                    output.println("");
+                    firstTime = false;
                 }
-                output.print(coord.lattitude + "\t");
-                output.print(coord.longitude + "\t");
-                output.print(coord.altitude);
-                output.println("");
-                firstTime = false;
-            }
 
+                // Clean up the record for the new use
+                coordList.clear();
+                flightNum = null;
+                departTime = null;
+                heading = 0;
+
+
+
+            }
         }
 
 

@@ -12,6 +12,8 @@ import java.io.PrintWriter;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * User: vlad
@@ -51,17 +53,32 @@ public class LoadFileTest extends KMLParseTest {
         final File file = findTestResource("wholeSingleRecord.kml");
         me.acceptInputFile(file);
 
-        assertEquals(me.getFlightNum(), "DAL1311");
-        assertEquals(me.getHeading(), 261);
-        assertEquals(me.getDepartTime(), "06/01/2013 07:24 AM CDT (1224Z)");
-        assertEquals(me.getCoordinatesCount(),7);
-        assertEquals(me.getCoordinates(0).lattitude , 33.931, .1);
-        assertEquals(me.getCoordinates(0).longitude, -118.33, .1);
-        assertEquals(me.getCoordinates(0).altitude, 30.0, .1);
+        // Make sure fields are clear afterwards
+        assertEquals(me.getFlightNum(), null);
+        assertEquals(me.getHeading(), 0);
+        assertEquals(me.getDepartTime(), null);
 
-        assertEquals(me.getCoordinates(5).lattitude , 33.951, .1);
-        assertEquals(me.getCoordinates(5).longitude, -118.25, .1);
-        assertEquals(me.getCoordinates(5).altitude, 733.0, .1);
+        verify(output,times(1)).print("FlightNum\t");
+        verify(output,times(1)).print("DepartureTime\t");
+        verify(output,times(1)).print("Heading\t");
+        verify(output,times(1)).print("Lat\t");
+        verify(output,times(1)).print("Long\t");
+        verify(output,times(1)).print("Alt");
+
+
+        verify(output,times(7)).print("DAL1311\t");
+        verify(output,times(1)).print("261\t");
+        verify(output,times(6)).print("\t\t");
+        verify(output,times(7)).print("06/01/2013 07:24 AM CDT (1224Z)\t");
+
+        verify(output,times(2)).print("33.9352777777778\t");
+        verify(output,times(2)).print("-118.393611111111\t");
+        verify(output,times(2)).print(30.0);
+
+        verify(output,times(1)).print("-118.2975\t");
+        verify(output,times(1)).print("33.9461111111111\t");
+        verify(output,times(1)).print(467.0);
+
 
     }
 

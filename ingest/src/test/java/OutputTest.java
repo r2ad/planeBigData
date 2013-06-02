@@ -10,9 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 /**
  * User: vlad
@@ -70,6 +68,28 @@ public class OutputTest extends KMLParseTest  {
 
     }
 
+    @Test
+    public void checkTwoRecordFile () throws IOException, SAXException {
 
+        KML2TSV me = new KML2TSV(sp,output);
+        final File file = findTestResource("twoRecords.kml");
+        me.acceptInputFile(file);
+
+        verify(output,times(1)).print("FlightNum\t");
+        verify(output,times(1)).print("DepartureTime\t");
+        verify(output,times(1)).print("Heading\t");
+        verify(output,times(1)).print("Lat\t");
+        verify(output,times(1)).print("Long\t");
+        verify(output,times(1)).print("Alt");
+    //    verify(output,times(8)).println("");
+
+        verify(output,times(7)).print("DAL1311\t");
+        verify(output,times(7)).print("UAL848\t");
+
+
+
+
+
+    }
 
 }
