@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <kml xmlns="http://earth.google.com/kml/2.2">
     <Document>
-    <Placemark>
+        <Placemark>
             <name>DAL1311</name>
             <Style id="fbstyle238761542">
                 <IconStyle>
@@ -14,7 +14,8 @@
                     </Icon>
                 </IconStyle>
             </Style>
-            <description><![CDATA[ <table width=250 border=0 cellspacing=0><tr><td><font size=1>brought to you by</font><br /><a href="http://fboweb.com/f/al.aspx?link=666&click=Y"><img border="0" src="http://fboweb.com/f/al.aspx?link=665"></a></td></tr><tr><td><font color=darkgreen><B>Active</b></font></td></tr><tr><td>MSY->LAX</td></tr><tr><td>Type: B738</td></tr><tr><td>Alt: 100ft @162kts</td></tr><tr><td>Departed: 06/01/2013 07:24 AM CDT (1224Z)</td></tr><tr><td>ETA: N/A, in 0h 0m</td></tr><tr><td>Route:</td></tr><tr><td>KMSY./.PKE097029..KONZL.SEAVU2.KLAX</td></tr></table> ]]></description>
+            <description>
+                <![CDATA[ <table width=250 border=0 cellspacing=0><tr><td><font size=1>brought to you by</font><br /><a href="http://fboweb.com/f/al.aspx?link=666&click=Y"><img border="0" src="http://fboweb.com/f/al.aspx?link=665"></a></td></tr><tr><td><font color=darkgreen><B>Active</b></font></td></tr><tr><td>MSY->LAX</td></tr><tr><td>Type: B738</td></tr><tr><td>Alt: 100ft @162kts</td></tr><tr><td>Departed: 06/01/2013 07:24 AM CDT (1224Z)</td></tr><tr><td>ETA: N/A, in 0h 0m</td></tr><tr><td>Route:</td></tr><tr><td>KMSY./.PKE097029..KONZL.SEAVU2.KLAX</td></tr></table> ]]></description>
             <styleUrl>#fbstyle238761542</styleUrl>
             <Point>
                 <extrude>1</extrude>
@@ -30,8 +31,9 @@
                 <coordinates>-118.393611111111,33.9352777777778,30
                     -118.347222222222,33.9413888888889,200 -118.316666666667,33.95,433
                     -118.2975,33.9461111111111,467 -118.25,33.95,733
-                    -118.229722222222,33.9530555555556,833</coordinates>
+                    -118.229722222222,33.9530555555556,833
+                </coordinates>
             </LineString>
-       </Placemark>
-</Document>
+        </Placemark>
+    </Document>
 </kml>

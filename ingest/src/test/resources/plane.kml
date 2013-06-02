@@ -1,26 +1,26 @@
-
-                                              <kml xmlns="http://earth.google.com/kml/2.2">
-                                                  <Document>
-                                              		<Placemark>
-                                                      <name>JBU1732</name>
-                                                      <Style id="fbstyle182954847">
-                                                          <IconStyle>
-                                                              <heading>201</heading>
-                                                              <Icon>
-                                                                  <href>root://icons/palette-2.png</href>
-                                                                  <y>0</y>
-                                                                  <w>32</w>
-                                                                  <h>32</h>
-                                                              </Icon>
-                                                          </IconStyle>
-                                                      </Style>
-                                                      <description><![CDATA[ <table width=250 border=0 cellspacing=0><tr><td><font size=1>brought to you by</font><br /><a href="http://fboweb.com/f/al.aspx?link=666&click=Y"><img border="0" src="http://fboweb.com/f/al.aspx?link=665"></a></td></tr><tr><td><font color=darkgreen><B>Active</b></font></td></tr><tr><td>TXKF->JFK</td></tr><tr><td>Type: A320</td></tr><tr><td>Alt: 400ft @130kts</td></tr><tr><td>Departed: 06/01/2013 10:16 AM EDT (1416Z)</td></tr><tr><td>ETA: N/A, in 0h 1m</td></tr><tr><td>Route:</td></tr><tr><td>TXKF./.SAVIK..BERGH..OWENZ..CAMRN..KJFK</td></tr></table> ]]></description>
-                                                      <styleUrl>#fbstyle182954847</styleUrl>
-                                                      <Point>
-                                                          <extrude>1</extrude>
-                                                          <altitudeMode>absolute</altitudeMode>
-                                                          <coordinates>-73.75,40.6666666666667,122</coordinates>
-                                                      </Point>
-                                              	</Placemark>
-                                              	</Document>
-                                                </kml>
+<kml xmlns="http://earth.google.com/kml/2.2">
+    <Document>
+        <Placemark>
+            <name>JBU1732</name>
+            <Style id="fbstyle182954847">
+                <IconStyle>
+                    <heading>201</heading>
+                    <Icon>
+                        <href>root://icons/palette-2.png</href>
+                        <y>0</y>
+                        <w>32</w>
+                        <h>32</h>
+                    </Icon>
+                </IconStyle>
+            </Style>
+            <description>
+                <![CDATA[ <table width=250 border=0 cellspacing=0><tr><td><font size=1>brought to you by</font><br /><a href="http://fboweb.com/f/al.aspx?link=666&click=Y"><img border="0" src="http://fboweb.com/f/al.aspx?link=665"></a></td></tr><tr><td><font color=darkgreen><B>Active</b></font></td></tr><tr><td>TXKF->JFK</td></tr><tr><td>Type: A320</td></tr><tr><td>Alt: 400ft @130kts</td></tr><tr><td>Departed: 06/01/2013 10:16 AM EDT (1416Z)</td></tr><tr><td>ETA: N/A, in 0h 1m</td></tr><tr><td>Route:</td></tr><tr><td>TXKF./.SAVIK..BERGH..OWENZ..CAMRN..KJFK</td></tr></table> ]]></description>
+            <styleUrl>#fbstyle182954847</styleUrl>
+            <Point>
+                <extrude>1</extrude>
+                <altitudeMode>absolute</altitudeMode>
+                <coordinates>-73.75,40.6666666666667,122</coordinates>
+            </Point>
+        </Placemark>
+    </Document>
+</kml>
