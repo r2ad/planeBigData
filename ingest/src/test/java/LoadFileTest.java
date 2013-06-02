@@ -1,4 +1,5 @@
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.planebigdata.KML2TSV;
 import org.xml.sax.SAXException;
@@ -28,19 +29,38 @@ public class LoadFileTest {
 
 
     @Test
-    public void processSingleFile() throws IOException, SAXException {
+    public void processHalfRecordFile() throws IOException, SAXException {
         KML2TSV me = new KML2TSV(sp);
-        final File file = new File(this.getClass().getClassLoader().getResource("plane.kml").getFile());
+        final File file = findTestResource("plane.kml");
         me.acceptInputFile(file);
 
         assertEquals(me.getFlightNum(), "JBU1732");
         assertEquals(me.getHeading(), 201);
         assertEquals(me.getDepartTime(), "06/01/2013 10:16 AM EDT (1416Z)");
-        assertEquals(me.getLattitude(), 40.66, 0.1);
-        assertEquals(me.getLongitude(), -73.75, .01);
-        assertEquals(me.getAltitude(), 122.0, .01);
-
-
+        assertEquals(me.getCoordinates(0).lattitude , 40.66, 0.1);
+        assertEquals(me.getCoordinates(0).longitude, -73.75, .01);
+        assertEquals(me.getCoordinates(0).altitude, 122.0, .01);
     }
+
+    @Test
+    @Ignore
+    public void processFullRecordFile() throws IOException, SAXException {
+        KML2TSV me = new KML2TSV(sp);
+        final File file = findTestResource("wholeSingleRecord.kml");
+        me.acceptInputFile(file);
+
+        assertEquals(me.getFlightNum(), "JBU1732");
+        assertEquals(me.getHeading(), 201);
+        assertEquals(me.getDepartTime(), "06/01/2013 10:16 AM EDT (1416Z)");
+        assertEquals(me.getCoordinates(0).lattitude , 40.66, 0.1);
+        assertEquals(me.getCoordinates(0).longitude, -73.75, .01);
+        assertEquals(me.getCoordinates(0).altitude, 122.0, .01);
+    }
+
+
+    private File findTestResource(String name) {
+        return new File(this.getClass().getClassLoader().getResource(name).getFile());
+    }
+
 
 }

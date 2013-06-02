@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +29,7 @@ public class KML2TSV extends DefaultHandler {
     private JsonGenerator jsonGen;
 
     private static final String HEADING_ELM = "heading";
+    private ArrayList<Coordinates> coordList = new ArrayList<Coordinates>(10);
 
     public KML2TSV(final SAXParser sp) {
         parser = sp;
@@ -90,17 +92,7 @@ public class KML2TSV extends DefaultHandler {
         return heading;
     }
 
-    public double getLongitude() {
-        return longitude;
-    }
 
-    public double getLattitude() {
-        return lattitude;
-    }
-
-    public double getAltitude() {
-        return altitude;
-    }
 
     public String getDepartTime() {
         return DepartTime;
@@ -108,9 +100,17 @@ public class KML2TSV extends DefaultHandler {
 
     private String DepartTime = "";
     private int heading = 0;
-    private double longitude = 0.0;
-    private double lattitude = 0.0;
-    private double altitude = 0.0;
+
+    public Coordinates getCoordinates(int idx) {
+        return coordList.get(0);
+    }
+
+    public class Coordinates
+    {
+        public double longitude = 0.0;
+        public double lattitude = 0.0;
+        public double altitude  = 0.0;
+    }
 
     boolean parsingFirstHalf = true;
 
@@ -181,14 +181,19 @@ public class KML2TSV extends DefaultHandler {
     private static final Pattern DEPART_TIME_REGEX = Pattern.compile("^.*<tr><td>Departed: (.+Z\\))</td>.*$");
 
 
+
     private void extractCoordinates(String longLat) throws SAXException {
         final Matcher matcher = LONGLAT_REGEX.matcher(longLat);
         //ignore non matching and return null >> this erases all polygon shapes for the moment
         if (!matcher.matches()) throw new SAXException("Problem parsing coordinates string " + longLat + " doesn't match");
 
-        this.lattitude =   Double.parseDouble(matcher.group(2));
-        this.longitude =   Double.parseDouble(matcher.group(1));
-        this.altitude  =   Double.parseDouble(matcher.group(3));
+        Coordinates coord = new Coordinates();
+
+        coord.lattitude =   Double.parseDouble(matcher.group(2));
+        coord.longitude =   Double.parseDouble(matcher.group(1));
+        coord.altitude  =   Double.parseDouble(matcher.group(3));
+
+        coordList.add(coord);
 
     }
 
