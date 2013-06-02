@@ -1,7 +1,12 @@
 package org.planebigdata;
-/*
- * Store KML ouput to a tab separated file:
+/**
+ * Parse KML ouput to a tab separated file.
+ *
+ * File format is:
+ *
  * flightNum  departTime  Heading Lat Long Alt
+ *
+ *
  * Note: cdata includes Departed: 06/01/2013 10:16 AM EDT (1416Z)
  */
 
@@ -32,7 +37,7 @@ public class KML2TSV extends DefaultHandler {
     }
 
 
-    final  public void acceptInputFile(final File srcFile) throws SAXException, IOException {
+    public final void acceptInputFile(final File srcFile) throws SAXException, IOException {
         System.out.println(String.format("starting on file %s", srcFile.getAbsolutePath()));
         try {
             outputHeader();
@@ -89,7 +94,7 @@ public class KML2TSV extends DefaultHandler {
         return coordList.size();
     }
 
-    static public class Coordinates {
+    public static class Coordinates {
         public double longitude = 0.0;
         public double lattitude = 0.0;
         public double altitude = 0.0;
@@ -143,7 +148,7 @@ public class KML2TSV extends DefaultHandler {
     }
 
     @Override
-    public final void endElement(final String uri,final  String lName, final String qName) throws SAXException {
+    public final void endElement(final String uri, final String lName, final String qName) throws SAXException {
         final String content = doneChars();
 
 
@@ -199,7 +204,8 @@ public class KML2TSV extends DefaultHandler {
     }
 
     private static final Pattern COORD_SPLIT_REGEX = Pattern.compile("[^0-9-,\\.]", Pattern.DOTALL);
-    private static final Pattern LONGLAT_REGEX = Pattern.compile("^(-?\\d+\\.\\d+),(-?\\d+\\.\\d+),(\\d+) ?$", Pattern.DOTALL);
+    private static final Pattern LONGLAT_REGEX = Pattern.compile("^(-?\\d+\\.\\d+),(-?\\d+\\.\\d+),(\\d+) ?$",
+            Pattern.DOTALL);
     private static final Pattern DEPART_TIME_REGEX = Pattern.compile("^.*<tr><td>Departed: (.+Z\\))</td>.*$");
 
 
