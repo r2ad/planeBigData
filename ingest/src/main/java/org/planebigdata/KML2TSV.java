@@ -12,9 +12,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -36,36 +34,15 @@ public class KML2TSV extends DefaultHandler {
     }
 
 
-
-
-    /**
-     * @param args
-     */
-    public static void main(String[] args) throws Exception {
-
-        final SAXParserFactory spf = SAXParserFactory.newInstance();
-        spf.setNamespaceAware(true);
-        final SAXParser sp = spf.newSAXParser();
-
-        KML2TSV me = new KML2TSV(sp);
-
-    }
-
-
     public void acceptInputFile(final File srcFile) throws SAXException, IOException {
         System.out.println(String.format("starting on file %s", srcFile.getAbsolutePath()));
         try {
-            //  newOutput(tgtFile);
             parser.parse(srcFile, this);
         } finally {
             doneOutput();
         }
     }
 
-    private void newOutput(File f) throws IOException {
-        output = new FileWriter(f);
-        //TODO:  Implement TSV writer
-    }
 
     private void doneOutput() throws IOException {
         try {
@@ -93,7 +70,6 @@ public class KML2TSV extends DefaultHandler {
     }
 
 
-
     public String getDepartTime() {
         return DepartTime;
     }
@@ -105,11 +81,10 @@ public class KML2TSV extends DefaultHandler {
         return coordList.get(0);
     }
 
-    public class Coordinates
-    {
+    public class Coordinates {
         public double longitude = 0.0;
         public double lattitude = 0.0;
-        public double altitude  = 0.0;
+        public double altitude = 0.0;
     }
 
     boolean parsingFirstHalf = true;
@@ -128,7 +103,9 @@ public class KML2TSV extends DefaultHandler {
     }
 
     private String doneChars() {
-        if (chars == null) return null;
+        if (chars == null) {
+            return null;
+        }
 
         final String c = chars.toString();
         chars = null;
@@ -137,14 +114,17 @@ public class KML2TSV extends DefaultHandler {
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
-        if (chars != null)
+        if (chars != null) {
             chars.append(ch, start, length);
+        }
     }
 
     @Override
     public void startElement(String uri, String lName, String qName, Attributes atts)
             throws SAXException {
-        if (!KML_NS.equals(uri)) return;
+        if (!KML_NS.equals(uri)) {
+            return;
+        }
 
 
         newChars();
@@ -157,9 +137,9 @@ public class KML2TSV extends DefaultHandler {
         final String content = doneChars();
 
 
-        if ( HEADING_ELM.equals(lName)  )  {
+        if (HEADING_ELM.equals(lName)) {
             heading = Integer.parseInt(content);
-        }  else if (DESCR_ELM.equals(lName)) {
+        } else if (DESCR_ELM.equals(lName)) {
             DepartTime = extractDepartTime(content);
         } else if (COORD_ELM.equals(lName)) {
             extractCoordinates(content);
@@ -172,26 +152,29 @@ public class KML2TSV extends DefaultHandler {
 
     private String extractDepartTime(String content) throws SAXException {
         final Matcher matcher = DEPART_TIME_REGEX.matcher(content.trim());
-        if (!matcher.matches())  throw new SAXException("Problem parsing departure time string " + content + " doesn't match");
+        if (!matcher.matches()) {
+            throw new SAXException("Problem parsing departure time string " + content + " doesn't match");
+        }
         return matcher.group(1);
     }
 
 
-    private static final Pattern LONGLAT_REGEX = Pattern.compile("^(-?\\d+\\.\\d+),(-?\\d+\\.\\d+),(\\d+) ?$",Pattern.DOTALL);
+    private static final Pattern LONGLAT_REGEX = Pattern.compile("^(-?\\d+\\.\\d+),(-?\\d+\\.\\d+),(\\d+) ?$", Pattern.DOTALL);
     private static final Pattern DEPART_TIME_REGEX = Pattern.compile("^.*<tr><td>Departed: (.+Z\\))</td>.*$");
-
 
 
     private void extractCoordinates(String longLat) throws SAXException {
         final Matcher matcher = LONGLAT_REGEX.matcher(longLat);
         //ignore non matching and return null >> this erases all polygon shapes for the moment
-        if (!matcher.matches()) throw new SAXException("Problem parsing coordinates string " + longLat + " doesn't match");
+        if (!matcher.matches()) {
+            throw new SAXException("Problem parsing coordinates string " + longLat + " doesn't match");
+        }
 
         Coordinates coord = new Coordinates();
 
-        coord.lattitude =   Double.parseDouble(matcher.group(2));
-        coord.longitude =   Double.parseDouble(matcher.group(1));
-        coord.altitude  =   Double.parseDouble(matcher.group(3));
+        coord.lattitude = Double.parseDouble(matcher.group(2));
+        coord.longitude = Double.parseDouble(matcher.group(1));
+        coord.altitude = Double.parseDouble(matcher.group(3));
 
         coordList.add(coord);
 
