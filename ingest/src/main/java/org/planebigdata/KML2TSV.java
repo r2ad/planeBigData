@@ -81,7 +81,7 @@ public class KML2TSV extends DefaultHandler {
         return coordList.get(idx);
     }
 
-    public int coordinatesCount() {
+    public int getCoordinatesCount() {
         return coordList.size();
     }
 
@@ -157,6 +157,9 @@ public class KML2TSV extends DefaultHandler {
     public void parseCoordinates(String content) throws SAXException {
         String[] coords = COORD_SPLIT_REGEX.split(content);
         for (String coord : coords) {
+            if (coord.trim().length() == 0) {
+                continue;
+            }
             extractCoordinates(coord);
         }
     }
@@ -169,7 +172,7 @@ public class KML2TSV extends DefaultHandler {
         return matcher.group(1);
     }
 
-    private static final Pattern COORD_SPLIT_REGEX = Pattern.compile("[^0-9-,\\.]");
+    private static final Pattern COORD_SPLIT_REGEX = Pattern.compile("[^0-9-,\\.]",Pattern.DOTALL);
     private static final Pattern LONGLAT_REGEX = Pattern.compile("^(-?\\d+\\.\\d+),(-?\\d+\\.\\d+),(\\d+) ?$", Pattern.DOTALL);
     private static final Pattern DEPART_TIME_REGEX = Pattern.compile("^.*<tr><td>Departed: (.+Z\\))</td>.*$");
 

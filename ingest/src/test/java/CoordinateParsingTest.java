@@ -30,7 +30,7 @@ public class CoordinateParsingTest {
         KML2TSV me = new KML2TSV(sp);
 
         me.parseCoordinates("-73.75,40.6666666666667,122");
-        assertEquals(me.coordinatesCount(), 1);
+        assertEquals(me.getCoordinatesCount(), 1);
         assertEquals(me.getCoordinates(0).lattitude , 40.66, 0.1);
         assertEquals(me.getCoordinates(0).longitude, -73.75, .01);
         assertEquals(me.getCoordinates(0).altitude, 122.0, .01);
@@ -42,7 +42,7 @@ public class CoordinateParsingTest {
         KML2TSV me = new KML2TSV(sp);
 
         me.parseCoordinates("73.75,-40.6666666666667,122");
-        assertEquals(me.coordinatesCount(), 1);
+        assertEquals(me.getCoordinatesCount(), 1);
         assertEquals(me.getCoordinates(0).lattitude , -40.66, 0.1);
         assertEquals(me.getCoordinates(0).longitude, 73.75, .01);
         assertEquals(me.getCoordinates(0).altitude, 122.0, .01);
@@ -53,7 +53,7 @@ public class CoordinateParsingTest {
         KML2TSV me = new KML2TSV(sp);
 
         me.parseCoordinates("-118.347222222222,33.9413888888889,200 93.316666666667,13.95,9033");
-        assertEquals(me.coordinatesCount(), 2);
+        assertEquals(me.getCoordinatesCount(), 2);
         assertEquals(me.getCoordinates(0).lattitude , 33.9 , .1);
         assertEquals(me.getCoordinates(0).longitude, -118.347, .1);
         assertEquals(me.getCoordinates(0).altitude, 200.01, .1);

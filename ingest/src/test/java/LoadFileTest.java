@@ -1,5 +1,4 @@
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.planebigdata.KML2TSV;
 import org.xml.sax.SAXException;
@@ -43,18 +42,23 @@ public class LoadFileTest {
     }
 
     @Test
-    @Ignore
     public void processFullRecordFile() throws IOException, SAXException {
         KML2TSV me = new KML2TSV(sp);
         final File file = findTestResource("wholeSingleRecord.kml");
         me.acceptInputFile(file);
 
-        assertEquals(me.getFlightNum(), "JBU1732");
-        assertEquals(me.getHeading(), 201);
-        assertEquals(me.getDepartTime(), "06/01/2013 10:16 AM EDT (1416Z)");
-        assertEquals(me.getCoordinates(0).lattitude , 40.66, 0.1);
-        assertEquals(me.getCoordinates(0).longitude, -73.75, .01);
-        assertEquals(me.getCoordinates(0).altitude, 122.0, .01);
+        assertEquals(me.getFlightNum(), "DAL1311");
+        assertEquals(me.getHeading(), 261);
+        assertEquals(me.getDepartTime(), "06/01/2013 07:24 AM CDT (1224Z)");
+        assertEquals(me.getCoordinatesCount(),7);
+        assertEquals(me.getCoordinates(0).lattitude , 33.931, .1);
+        assertEquals(me.getCoordinates(0).longitude, -118.33, .1);
+        assertEquals(me.getCoordinates(0).altitude, 30.0, .1);
+
+        assertEquals(me.getCoordinates(5).lattitude , 33.951, .1);
+        assertEquals(me.getCoordinates(5).longitude, -118.25, .1);
+        assertEquals(me.getCoordinates(5).altitude, 733.0, .1);
+
     }
 
 
