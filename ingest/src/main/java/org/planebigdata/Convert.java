@@ -7,7 +7,7 @@ package org.planebigdata;
 public class Convert {
 
 
-    public static  void main ( String args [] ) {
+    public static  void main ( String[] args ) {
 
         System.out.println("We don't have anything here yet..");
 
