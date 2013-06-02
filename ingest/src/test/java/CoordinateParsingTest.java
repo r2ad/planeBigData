@@ -7,7 +7,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import java.io.PrintWriter;
+
 import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 /**
  * User: vlad
@@ -16,6 +19,7 @@ import static junit.framework.Assert.assertEquals;
 public class CoordinateParsingTest {
 
     private SAXParser sp;
+    private PrintWriter output;
 
 
     @Before
@@ -23,11 +27,12 @@ public class CoordinateParsingTest {
         final SAXParserFactory spf = SAXParserFactory.newInstance();
         spf.setNamespaceAware(true);
         sp = spf.newSAXParser();
+        output = mock(PrintWriter.class);
     }
 
     @Test
     public void parseSingleCoordNegativeLong() throws SAXException {
-        KML2TSV me = new KML2TSV(sp);
+        KML2TSV me = new KML2TSV(sp, output);
 
         me.parseCoordinates("-73.75,40.6666666666667,122");
         assertEquals(me.getCoordinatesCount(), 1);
@@ -39,7 +44,7 @@ public class CoordinateParsingTest {
 
     @Test
     public void parseSingleCoordNegativeLat() throws SAXException {
-        KML2TSV me = new KML2TSV(sp);
+        KML2TSV me = new KML2TSV(sp, output);
 
         me.parseCoordinates("73.75,-40.6666666666667,122");
         assertEquals(me.getCoordinatesCount(), 1);
@@ -50,7 +55,7 @@ public class CoordinateParsingTest {
 
     @Test
     public void parseDoubleCoordinates() throws SAXException {
-        KML2TSV me = new KML2TSV(sp);
+        KML2TSV me = new KML2TSV(sp, output);
 
         me.parseCoordinates("-118.347222222222,33.9413888888889,200 93.316666666667,13.95,9033");
         assertEquals(me.getCoordinatesCount(), 2);

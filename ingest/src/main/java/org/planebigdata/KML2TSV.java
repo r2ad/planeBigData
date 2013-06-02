@@ -27,7 +27,7 @@ public class KML2TSV extends DefaultHandler {
     private static final String HEADING_ELM = "heading";
     private ArrayList<Coordinates> coordList = new ArrayList<Coordinates>(10);
 
-    public KML2TSV(final SAXParser sp) {
+    public KML2TSV(final SAXParser sp, PrintWriter output) {
         parser = sp;
     }
 
