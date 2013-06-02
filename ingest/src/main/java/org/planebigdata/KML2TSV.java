@@ -78,7 +78,11 @@ public class KML2TSV extends DefaultHandler {
     private int heading = 0;
 
     public Coordinates getCoordinates(int idx) {
-        return coordList.get(0);
+        return coordList.get(idx);
+    }
+
+    public int coordinatesCount() {
+        return coordList.size();
     }
 
     public class Coordinates {
@@ -142,12 +146,19 @@ public class KML2TSV extends DefaultHandler {
         } else if (DESCR_ELM.equals(lName)) {
             DepartTime = extractDepartTime(content);
         } else if (COORD_ELM.equals(lName)) {
-            extractCoordinates(content);
+            parseCoordinates(content);
         } else if (NAME_ELM.equals(lName)) {
             FlightNum = content;
         }
 
 
+    }
+
+    public void parseCoordinates(String content) throws SAXException {
+        String[] coords = COORD_SPLIT_REGEX.split(content);
+        for (String coord : coords) {
+            extractCoordinates(coord);
+        }
     }
 
     private String extractDepartTime(String content) throws SAXException {
@@ -158,12 +169,14 @@ public class KML2TSV extends DefaultHandler {
         return matcher.group(1);
     }
 
-
+    private static final Pattern COORD_SPLIT_REGEX = Pattern.compile("[^0-9-,\\.]");
     private static final Pattern LONGLAT_REGEX = Pattern.compile("^(-?\\d+\\.\\d+),(-?\\d+\\.\\d+),(\\d+) ?$", Pattern.DOTALL);
     private static final Pattern DEPART_TIME_REGEX = Pattern.compile("^.*<tr><td>Departed: (.+Z\\))</td>.*$");
 
 
-    private void extractCoordinates(String longLat) throws SAXException {
+
+
+    public void extractCoordinates(String longLat) throws SAXException {
         final Matcher matcher = LONGLAT_REGEX.matcher(longLat);
         //ignore non matching and return null >> this erases all polygon shapes for the moment
         if (!matcher.matches()) {
