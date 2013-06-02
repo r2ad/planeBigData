@@ -110,7 +110,9 @@ public class KML2TSV extends DefaultHandler {
     private int heading = 0;
     private double longitude = 0.0;
     private double lattitude = 0.0;
-    private double altitude;
+    private double altitude = 0.0;
+
+    boolean parsingFirstHalf = true;
 
     private static final String KML_NS = "http://earth.google.com/kml/2.2";
     private static final String NAME_ELM = "name";
@@ -168,14 +170,14 @@ public class KML2TSV extends DefaultHandler {
 
     }
 
-    private String extractDepartTime(String content) {
-        final Matcher matcher = DEPART_TIME_REGEX.matcher(content);
-        if (!matcher.matches()) return null;
+    private String extractDepartTime(String content) throws SAXException {
+        final Matcher matcher = DEPART_TIME_REGEX.matcher(content.trim());
+        if (!matcher.matches())  throw new SAXException("Problem parsing departure time string " + content + " doesn't match");
         return matcher.group(1);
     }
 
 
-    private static final Pattern LONGLAT_REGEX = Pattern.compile("^(-?\\d+\\.\\d+),(-?\\d+\\.\\d+),(\\d+) ?$");
+    private static final Pattern LONGLAT_REGEX = Pattern.compile("^(-?\\d+\\.\\d+),(-?\\d+\\.\\d+),(\\d+) ?$",Pattern.DOTALL);
     private static final Pattern DEPART_TIME_REGEX = Pattern.compile("^.*<tr><td>Departed: (.+Z\\))</td>.*$");
 
 
