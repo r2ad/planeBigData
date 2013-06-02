@@ -6,7 +6,6 @@ package org.planebigdata;
  */
 
 import org.apache.commons.io.IOUtils;
-import org.codehaus.jackson.JsonGenerator;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -14,7 +13,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.SAXParser;
 import java.io.File;
 import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,8 +22,7 @@ public class KML2TSV extends DefaultHandler {
 
     private final SAXParser parser;
 
-    private Writer output;
-    private JsonGenerator jsonGen;
+    private PrintWriter output;
 
     private static final String HEADING_ELM = "heading";
     private ArrayList<Coordinates> coordList = new ArrayList<Coordinates>(10);
@@ -50,7 +48,6 @@ public class KML2TSV extends DefaultHandler {
         } finally {
             IOUtils.closeQuietly(output);
             output = null;
-            jsonGen = null;
         }
     }
 
@@ -97,6 +94,7 @@ public class KML2TSV extends DefaultHandler {
     private static final String NAME_ELM = "name";
     private static final String DESCR_ELM = "description";
     private static final String COORD_ELM = "coordinates";
+    private static final String PLACE_ELM = "placemark";
 
     private StringBuilder chars;
 
@@ -124,7 +122,7 @@ public class KML2TSV extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String lName, String qName, Attributes atts)
+    final public void startElement(final String uri, final  String lName, final  String qName,final  Attributes atts)
             throws SAXException {
         if (!KML_NS.equals(uri)) {
             return;
@@ -149,6 +147,12 @@ public class KML2TSV extends DefaultHandler {
             parseCoordinates(content);
         } else if (NAME_ELM.equals(lName)) {
             FlightNum = content;
+        } else if (PLACE_ELM.equals(lName)) {
+            if ( coordList.size() > 1 )
+            {
+               // Dump out the records
+               output.print("Record");
+            }
         }
 
 
