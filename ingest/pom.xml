@@ -4,7 +4,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--   <checkstyle.config.location>style_rules.xml</checkstyle.config.location> -->
+        <checkstyle.config.location>style_rules.xml</checkstyle.config.location>
     </properties>
 
     <modelVersion>4.0.0</modelVersion>
