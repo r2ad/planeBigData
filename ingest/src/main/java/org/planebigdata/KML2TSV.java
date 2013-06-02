@@ -1,7 +1,7 @@
 package org.planebigdata;
 /*
  * Store KML ouput to a tab separated file:
- * FlightNum	DepartTime	Heading	Lat Long	Alt	
+ * FlightNum  DepartTime  Heading Lat Long Alt
  * Note: cdata includes Departed: 06/01/2013 10:16 AM EDT (1416Z)
  */
 
@@ -24,21 +24,32 @@ public class KML2TSV extends DefaultHandler {
 
     private PrintWriter output;
 
-    private static final String HEADING_ELM = "heading";
     private ArrayList<Coordinates> coordList = new ArrayList<Coordinates>(10);
 
-    public KML2TSV(final SAXParser sp, PrintWriter output) {
+    public KML2TSV(final SAXParser sp, PrintWriter out) {
         parser = sp;
+        output = out;
     }
 
 
     public void acceptInputFile(final File srcFile) throws SAXException, IOException {
         System.out.println(String.format("starting on file %s", srcFile.getAbsolutePath()));
         try {
+            outputHeader();
             parser.parse(srcFile, this);
         } finally {
             doneOutput();
         }
+    }
+
+    private void outputHeader() {
+        output.print("FlightNum\t");
+        output.print("DepartureTime\t");
+        output.print("Heading\t");
+        output.print("Lat\t");
+        output.print("Long\t");
+        output.print("Alt");
+        output.println("");
     }
 
 
@@ -94,7 +105,9 @@ public class KML2TSV extends DefaultHandler {
     private static final String NAME_ELM = "name";
     private static final String DESCR_ELM = "description";
     private static final String COORD_ELM = "coordinates";
-    private static final String PLACE_ELM = "placemark";
+    private static final String PLACE_ELM = "Placemark";
+    private static final String HEADING_ELM = "heading";
+
 
     private StringBuilder chars;
 
@@ -122,7 +135,7 @@ public class KML2TSV extends DefaultHandler {
     }
 
     @Override
-    final public void startElement(final String uri, final  String lName, final  String qName,final  Attributes atts)
+    final public void startElement(final String uri, final String lName, final String qName, final Attributes atts)
             throws SAXException {
         if (!KML_NS.equals(uri)) {
             return;
@@ -148,10 +161,26 @@ public class KML2TSV extends DefaultHandler {
         } else if (NAME_ELM.equals(lName)) {
             FlightNum = content;
         } else if (PLACE_ELM.equals(lName)) {
-            if ( coordList.size() > 1 )
-            {
-               // Dump out the records
-               output.print("Record");
+            if (coordList.size() > 1) {
+                // Dump out the records
+                boolean firstTime = true;
+                for (Coordinates coord : coordList) {
+
+                    output.print(FlightNum + "\t");
+                    output.print(DepartTime + "\t");
+
+                    if ( firstTime ) {
+                        output.print(heading + "\t");
+                    }  else {
+                        output.print("\t\t");
+                    }
+                    output.print(coord.lattitude + "\t");
+                    output.print(coord.longitude + "\t");
+                    output.print(coord.altitude  );
+                    output.println("");
+                    firstTime = false;
+                }
+
             }
         }
 
@@ -176,11 +205,9 @@ public class KML2TSV extends DefaultHandler {
         return matcher.group(1);
     }
 
-    private static final Pattern COORD_SPLIT_REGEX = Pattern.compile("[^0-9-,\\.]",Pattern.DOTALL);
+    private static final Pattern COORD_SPLIT_REGEX = Pattern.compile("[^0-9-,\\.]", Pattern.DOTALL);
     private static final Pattern LONGLAT_REGEX = Pattern.compile("^(-?\\d+\\.\\d+),(-?\\d+\\.\\d+),(\\d+) ?$", Pattern.DOTALL);
     private static final Pattern DEPART_TIME_REGEX = Pattern.compile("^.*<tr><td>Departed: (.+Z\\))</td>.*$");
-
-
 
 
     public void extractCoordinates(String longLat) throws SAXException {

@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
  * User: vlad
  * Created : 6/1/13 2:23 PM
  */
-public class LoadFileTest {
+public class LoadFileTest extends KMLParseTest {
 
     private SAXParser sp;
     private PrintWriter output;
@@ -64,11 +64,5 @@ public class LoadFileTest {
         assertEquals(me.getCoordinates(5).altitude, 733.0, .1);
 
     }
-
-
-    private File findTestResource(String name) {
-        return new File(this.getClass().getClassLoader().getResource(name).getFile());
-    }
-
 
 }
