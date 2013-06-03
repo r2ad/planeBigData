@@ -6,8 +6,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 
 /**
- * User: vlad
- * Created : 6/1/13 1:57 PM
+ * Driver class, kicks off conversion process.
  */
 public class Convert {
 
@@ -27,7 +26,7 @@ public class Convert {
             throws IOException, SAXException, ParserConfigurationException {
         convertFile(inFile,
                 new PrintStream(
-                        new FileOutputStream(outFile)));
+                        new FileOutputStream(outFile),true,"UTF-8"));
     }
 
     public static final void convertFile(final String inFile, final PrintStream out)
@@ -40,8 +39,6 @@ public class Convert {
             throws SAXException, ParserConfigurationException, IOException {
         KML2TSV me = new KML2TSV(new PrintWriter(out));
         me.acceptInputFile(file);
-
-
     }
 
 
