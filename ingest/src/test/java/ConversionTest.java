@@ -26,7 +26,7 @@ public class ConversionTest extends KMLParseTest {
     @Test
     public void conversionWorkingOkTest() throws SAXException, ParserConfigurationException, IOException {
         final String file = locateInClassPath("twoRecords.kml");
-        Convert.ConvertFile(file, mockSout);
+        Convert.convertFile(file, mockSout);
         verify(mockSout,times(1)).close();
     }
 

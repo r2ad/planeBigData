@@ -12,30 +12,32 @@ import java.io.*;
 public class Convert {
 
 
-    public static  void main ( String args [] ) throws SAXException, ParserConfigurationException, IOException {
+    public static final void main(final String[] args)
+            throws SAXException, ParserConfigurationException, IOException {
 
-        if ( args.length == 1 )
-        {
-            ConvertFile(args[0],System.out);
-        }  else if ( args.length == 2 )
-        {
-            ConvertFile(args[0],args[1]);
+        if (args.length == 1) {
+            convertFile(args[0], System.out);
+        } else if (args.length == 2) {
+            convertFile(args[0], args[1]);
         }
 
     }
 
-    private static void ConvertFile(String inFile, String outFile) throws IOException, SAXException, ParserConfigurationException {
-        ConvertFile(inFile,
+    public static final void convertFile(final String inFile, final String outFile)
+            throws IOException, SAXException, ParserConfigurationException {
+        convertFile(inFile,
                 new PrintStream(
-                new FileOutputStream(outFile)));
+                        new FileOutputStream(outFile)));
     }
 
-    public static void ConvertFile(String inFile, PrintStream out) throws IOException, SAXException, ParserConfigurationException {
+    public static final void convertFile(final String inFile, final PrintStream out)
+            throws IOException, SAXException, ParserConfigurationException {
         InputStream in = new FileInputStream(inFile);
-        ConvertFile(in,out);
+        convertFile(in, out);
     }
 
-    public static void ConvertFile(InputStream file, PrintStream out) throws SAXException, ParserConfigurationException, IOException {
+    public static final void convertFile(final InputStream file, final PrintStream out)
+            throws SAXException, ParserConfigurationException, IOException {
         KML2TSV me = new KML2TSV(new PrintWriter(out));
         me.acceptInputFile(file);
 
