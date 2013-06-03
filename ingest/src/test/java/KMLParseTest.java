@@ -5,6 +5,10 @@ import java.io.File;
  */
 public abstract class KMLParseTest {
     protected File findTestResource(String name) {
-        return new File(this.getClass().getClassLoader().getResource(name).getFile());
+        return new File(locateInClassPath(name));
+    }
+
+    protected String locateInClassPath(String name) {
+        return this.getClass().getClassLoader().getResource(name).getFile();
     }
 }

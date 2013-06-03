@@ -4,8 +4,6 @@ import org.planebigdata.KML2TSV;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,20 +17,19 @@ import static org.mockito.Mockito.*;
 public class OutputTest extends KMLParseTest  {
 
 
-    private SAXParser sp;
     private PrintWriter output;
 
     @Before
     public void setup() throws SAXException, ParserConfigurationException {
-        final SAXParserFactory spf = SAXParserFactory.newInstance();
         output = mock(PrintWriter.class);
-        spf.setNamespaceAware(true);
-        sp = spf.newSAXParser();
+
     }
 
+
+
     @Test
-    public void checkSingleRecordProducesOneHeaderAndSevenDataRows() throws IOException, SAXException {
-        KML2TSV me = new KML2TSV(sp,output);
+    public void checkSingleRecordProducesOneHeaderAndSevenDataRows() throws IOException, SAXException, ParserConfigurationException {
+        KML2TSV me = new KML2TSV(output);
         final File file = findTestResource("wholeSingleRecord.kml");
         me.acceptInputFile(file);
 
@@ -69,9 +66,9 @@ public class OutputTest extends KMLParseTest  {
     }
 
     @Test
-    public void checkTwoRecordFile () throws IOException, SAXException {
+    public void checkTwoRecordFile () throws IOException, SAXException, ParserConfigurationException {
 
-        KML2TSV me = new KML2TSV(sp,output);
+        KML2TSV me = new KML2TSV(output);
         final File file = findTestResource("twoRecords.kml");
         me.acceptInputFile(file);
 
@@ -81,15 +78,14 @@ public class OutputTest extends KMLParseTest  {
         verify(output,times(1)).print("Lat\t");
         verify(output,times(1)).print("Long\t");
         verify(output,times(1)).print("Alt");
-    //    verify(output,times(8)).println("");
+        verify(output,times(15)).println(""); // 7 + 7 records + 1 header
 
         verify(output,times(7)).print("DAL1311\t");
         verify(output,times(7)).print("UAL848\t");
 
 
-
-
-
     }
+
+
 
 }

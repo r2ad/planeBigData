@@ -34,8 +34,8 @@ public class LoadFileTest extends KMLParseTest {
 
 
     @Test
-    public void processHalfRecordFile() throws IOException, SAXException {
-        KML2TSV me = new KML2TSV(sp, output);
+    public void processHalfRecordFile() throws IOException, SAXException, ParserConfigurationException {
+        KML2TSV me = new KML2TSV(output);
         final File file = findTestResource("plane.kml");
         me.acceptInputFile(file);
 
@@ -48,12 +48,12 @@ public class LoadFileTest extends KMLParseTest {
     }
 
     @Test
-    public void processFullRecordFile() throws IOException, SAXException {
-        KML2TSV me = new KML2TSV(sp, output);
+    public void processFullRecordFile() throws IOException, SAXException, ParserConfigurationException {
+        KML2TSV me = new KML2TSV(output);
         final File file = findTestResource("wholeSingleRecord.kml");
         me.acceptInputFile(file);
 
-        // Make sure fields are clear afterwards
+        // Make sure fields are clear after whole record is written out
         assertEquals(me.getFlightNum(), null);
         assertEquals(me.getHeading(), 0);
         assertEquals(me.getDepartTime(), null);

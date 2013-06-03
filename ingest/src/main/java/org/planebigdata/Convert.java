@@ -1,5 +1,10 @@
 package org.planebigdata;
 
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.*;
+
 /**
  * User: vlad
  * Created : 6/1/13 1:57 PM
@@ -7,10 +12,22 @@ package org.planebigdata;
 public class Convert {
 
 
-    public static  void main ( String args [] ) {
+    public static  void main ( String args [] ) throws SAXException, ParserConfigurationException, IOException {
 
-        System.out.println("We don't have anything here yet..");
+        if ( args.length == 1 )
+        {
+            ConvertFile(args[0],System.out);
+        }
 
     }
+
+    public static void ConvertFile(String file, PrintStream out) throws SAXException, ParserConfigurationException, IOException {
+
+        KML2TSV me = new KML2TSV(new PrintWriter(out));
+        me.acceptInputFile(new FileInputStream(file));
+
+
+    }
+
 
 }

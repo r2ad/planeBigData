@@ -6,8 +6,12 @@ package org.planebigdata;
  *
  * flightNum  departTime  Heading Lat Long Alt
  *
- *
  * Note: cdata includes Departed: 06/01/2013 10:16 AM EDT (1416Z)
+ *
+ * For flight data:
+ * ref: Lat/Lon ref:
+ * http://code.google.com/p/simplelatlng/source/browse/src/main/java/com/javadocmd/simplelatlng/LatLng.java
+ *
  */
 
 import org.apache.commons.io.IOUtils;
@@ -15,10 +19,10 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,14 +36,13 @@ public class KML2TSV extends DefaultHandler {
     private ArrayList<Coordinates> coordList = new ArrayList<Coordinates>(10);
     private boolean insidePlaceMark = false;
 
-    public KML2TSV(final SAXParser sp, final PrintWriter out) {
-        parser = sp;
+    public KML2TSV(final PrintWriter out) throws SAXException, ParserConfigurationException {
+        parser = getSAXParser();
         output = out;
     }
 
 
-    public final void acceptInputFile(final File srcFile) throws SAXException, IOException {
-        System.out.println(String.format("starting on file %s", srcFile.getAbsolutePath()));
+    public final void acceptInputFile(final InputStream srcFile) throws SAXException, IOException {
         try {
             outputHeader();
             parser.parse(srcFile, this);
@@ -64,10 +67,6 @@ public class KML2TSV extends DefaultHandler {
         output = null;
     }
 
-    // For flight data:
-    /*
-    * ref: Lat/Lon ref: http://code.google.com/p/simplelatlng/source/browse/src/main/java/com/javadocmd/simplelatlng/LatLng.java
-    */
 
     public final String getFlightNum() {
         return flightNum;
@@ -93,6 +92,11 @@ public class KML2TSV extends DefaultHandler {
 
     public final int getCoordinatesCount() {
         return coordList.size();
+    }
+
+    public final void acceptInputFile(File input) throws IOException, SAXException {
+        InputStream in = new FileInputStream(input);
+        this.acceptInputFile(in);
     }
 
     public static class Coordinates {
@@ -128,6 +132,9 @@ public class KML2TSV extends DefaultHandler {
         return c;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void characters(final char[] ch, final int start, final int length) throws SAXException {
         if (chars != null) {
@@ -135,6 +142,9 @@ public class KML2TSV extends DefaultHandler {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void startElement(final String uri, final String lName, final String qName, final Attributes atts)
             throws SAXException {
@@ -142,7 +152,7 @@ public class KML2TSV extends DefaultHandler {
             return;
         }
 
-        if ( PLACE_ELM.equals(lName)) {
+        if (PLACE_ELM.equals(lName)) {
             insidePlaceMark = true;
         }
 
@@ -151,13 +161,16 @@ public class KML2TSV extends DefaultHandler {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void endElement(final String uri, final String lName, final String qName) throws SAXException {
         final String content = doneChars();
 
         if (HEADING_ELM.equals(lName)) {
             heading = Integer.parseInt(content);
-        } else if (DESCR_ELM.equals(lName) && insidePlaceMark ) {
+        } else if (DESCR_ELM.equals(lName) && insidePlaceMark) {
             departTime = extractDepartTime(content);
         } else if (COORD_ELM.equals(lName)) {
             parseCoordinates(content);
@@ -192,11 +205,16 @@ public class KML2TSV extends DefaultHandler {
                 heading = 0;
 
 
-
             }
         }
 
 
+    }
+
+    public final SAXParser getSAXParser() throws ParserConfigurationException, SAXException {
+        final SAXParserFactory spf = SAXParserFactory.newInstance();
+        spf.setNamespaceAware(true);
+        return spf.newSAXParser();
     }
 
     public final void parseCoordinates(final String content) throws SAXException {
@@ -218,7 +236,7 @@ public class KML2TSV extends DefaultHandler {
     }
 
     private static final Pattern COORD_SPLIT_REGEX = Pattern.compile("[^0-9-,\\.]", Pattern.DOTALL);
-    private static final Pattern LONGLAT_REGEX = Pattern.compile("^(-?\\d+\\.\\d+),(-?\\d+\\.\\d+),(\\d+) ?$",
+    private static final Pattern LONGLAT_REGEX = Pattern.compile("^(-?\\d+\\.?\\d+),(-?\\d+\\.?\\d+),(\\d+) ?$",
             Pattern.DOTALL);
     private static final Pattern DEPART_TIME_REGEX = Pattern.compile("^.*<tr><td>Departed: (.+Z\\))</td>.*$");
 
