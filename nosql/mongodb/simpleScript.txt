@@ -1,0 +1,7 @@
+conn = new Mongo();
+db = conn.getDB("test");
+db.eval("find()")
+
+db = connect("localhost:27020/test");
+
+db.eval("find()")
