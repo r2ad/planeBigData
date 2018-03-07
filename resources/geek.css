@@ -1,0 +1,160 @@
+/*
+  Stylesheet for geek.zanshin.net.  Originally found on mydogmeg.net many years ago.
+  Author: Mark Nichols
+  Date: January 12, 2008
+  Modification History
+  12 november 2008 - converted to fluid layout from fixed, added list item, 
+                     renamed lb to block
+------------------------------------------------------------------------------------ */
+body {
+	margin: 		0px;
+	background: 	#fff;
+	color: 			#333;
+	font-family: 	'Lucinda Grande', Verdana, Arial, Helvetica, sans-serif;
+	/* font-family: Verdana, Arial, Helvetica, sans-serif; */
+	font-size: 		8pt;
+}
+/*
+  all columns
+------------------------------------------------------------------------------------ */
+#lc, #clc, #crc, #rc {
+	width:			23%;
+	margin-top:		10px;
+}
+
+/*
+  left column
+------------------------------------------------------------------------------------ */
+#lc {
+	float: 			left;
+	margin-left:    10px;
+}
+
+/*
+  left center column
+------------------------------------------------------------------------------------ */
+#clc {
+	float:	 		left;
+	margin-left: 	20px;
+}
+
+/*
+  right center column
+------------------------------------------------------------------------------------ */
+#crc {
+	float: 			left;
+	margin-left: 	20px;
+}
+
+/*
+  right column
+------------------------------------------------------------------------------------ */
+#rc {
+	float: 			left;
+	margin-left:	20px;
+}
+
+#banner{
+	background: 	#fff;
+	font-family: 	georgia;
+	height: 		100px;
+	border-bottom: 	3px double black;
+}
+
+/* 
+  the h5 and h6 root settings within the pageHeader division
+------------------------------------------------------------------------------------ */
+#banner h5,h6{
+	position: 		absolute; 
+	display: 		inline;
+	color: 			black;
+/*	background: 	white; */
+	}
+
+/* 
+  the h5 specific settings within the banner division
+------------------------------------------------------------------------------------ */
+#banner h5{
+	font-size: 		14px;
+	color:			#639;
+	left: 			50px;
+	top: 			0px;
+	padding: 		12px;
+	/* border: 		1px dotted black; */
+	}
+
+/* 
+  the h6 specific settings within the banner division
+------------------------------------------------------------------------------------ */
+#banner h6{
+	font-size: 		10px;
+	color:			#369;
+	left: 			0px;
+	top: 			35px;
+	padding: 		3px;
+	/* border: 		1px solid black; */
+	text-align: 	right;
+	width: 			250px;
+	}
+
+#banner a {
+	color: 			#9cf;
+	text-decoration: none;
+}
+
+#banner a:hover {
+	text-decoration: underline;
+}
+
+/*
+  we want no bullet, and no indentation for our list items
+------------------------------------------------------------------------------------ */
+li {
+	list-style-type: none;
+	margin-left:     -40px;
+}
+
+/*
+  all groups on the page are grouped into blocks
+------------------------------------------------------------------------------------ */
+.block {
+	width: 			100%;
+	background: 	#fff;
+	font-family: 	Verdana, Arial, Helvetica, sans-serif;
+	padding-bottom: 10px;
+	margin-bottom: 	20px;
+	border: 		1px dotted #036;
+}
+
+.block h1, h2 {
+	font-size: 		8pt;
+	font-weight: 	bold;
+	color: 			#369;
+	margin: 		5px 10px 3px 10px;
+	border-bottom: 	1px solid black;
+}
+
+.block h2 {
+	font-size: 		9pt;
+	margin-left: 	15px;
+}
+
+.block a {
+	color: 			#333;
+	text-decoration: none;
+}
+
+.block a:hover {
+	text-decoration: underline;
+}
+
+p {
+	font-size: 		8pt;
+	color: 			#333;
+	margin: 		0px 15px 3px 15px;
+	line-height: 	110%;
+}
+
+p.i1 {
+	margin-left: 25px;
+}
